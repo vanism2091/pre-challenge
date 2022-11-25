@@ -48,25 +48,24 @@ struct Util {
 
 @available(macOS 13.0, *)
 struct RM { // latest util
-    fileprivate static let fieldSeperator = /\s{1}/
-    fileprivate static let name = /^[A-Za-z]+$/
-    fileprivate static let score = /^[A-D]{1}[+]?$|^F$|^[1-4]{1}(.5)?$|^0$/
-//    fileprivate static let scoreString = /^[A-D]{1}[+]?$|^F$/
-//    fileprivate static let scoreNumber = /^[1-4]{1}(.5)?$|^0$/
+    fileprivate static let seperator = /\s{1}/
+    fileprivate static let name = /[A-Za-z_]+/
+    fileprivate static let courseName = /\w+/
+    fileprivate static let score = /[A-D]{1}[+]?|F|[1-4]{1}(.5)?|0/
     
     fileprivate static let oneOutputMatcher = Regex {
         Capture { Self.name }
     }
     fileprivate static let twoOutputMatcher = Regex {
-        Capture { OneOrMore { CharacterClass.any } }
-        fieldSeperator
+        Capture { Self.name }
+        Self.seperator
         Capture { OneOrMore { CharacterClass.any } }
     }
     fileprivate static let threeOutputMatcher = Regex {
-        Capture { OneOrMore { CharacterClass.any } }
-        fieldSeperator
-        Capture { OneOrMore { CharacterClass.any } }
-        fieldSeperator
+        Capture { Self.name }
+        Self.seperator
+        Capture { Self.courseName }
+        Self.seperator
         Capture { Self.score }
     }
 }

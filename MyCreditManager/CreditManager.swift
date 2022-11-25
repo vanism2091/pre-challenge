@@ -58,6 +58,10 @@ class CreditManager {
             let status = (input as! ParsedZero).status
             if status == "X" {
                 throw CMError.quitProgram
+                
+            }
+            else if status == "t" {
+                
             } else {
                 if ["2", "4", "5"].contains(status) && students.isEmpty {
                     throw CMError.emptyStudents
@@ -73,7 +77,7 @@ class CreditManager {
                 let student = Student(name: name)
                 students.append(student)
             }
-        // deleteStudent
+            // deleteStudent
         case "2":
             if students.isEmpty { throw CMError.emptyStudents }
             let name = (input as! ParsedOne).name
@@ -82,7 +86,7 @@ class CreditManager {
             } else {
                 throw CMError.studentNotFound(name: name)
             }
-        // addScore
+            // addScore
         case "3":
             let name = (input as! ParsedThree).name
             guard let student = students.first(where: { $0.name == name }) else {
@@ -94,7 +98,7 @@ class CreditManager {
                 throw CMError.wrongInput
             }
             student.setScore(course: course, score: score)
-        // deleteScore
+            // deleteScore
         case "4":
             let name = (input as! ParsedTwo).name
             guard let student = students.first(where: { $0.name == name }) else {
@@ -104,7 +108,7 @@ class CreditManager {
             guard student.removeScore(course: course) != nil else {
                 throw CMError.courseNotFound(name: name, course:course)
             }
-        // showAvg
+            // showAvg
         case "5":
             let name = (input as! ParsedOne).name
             guard let student = students.first(where: { $0.name == name }) else {
@@ -114,6 +118,9 @@ class CreditManager {
                 throw CMError.emptyCourse(name: name)
             }
             student.printScores()
+        case "t":
+            let parsedInput = (input as! ParsedTwo)
+            print(parsedInput)
         default:
             return
         }
